@@ -87,16 +87,7 @@ class MeliEr extends Component
         $this->mohs_hardness = $meli->mohs_hardness;
     }
 
-    // Render Method
-    public function render()
-    {
-        return view('livewire.meli-er', [
-            // Gunakan eager loading (with('uri')) untuk memuat nama grup
-            'melis' => Meli::with('uri')->get(),
-            // Kirim daftar grup ke view untuk dropdown
-            'uris' => MeliUri::orderBy('name')->get(), 
-        ]);
-    }
+    
 
     // Method untuk D (Delete)
     public function delete($meliId)
@@ -107,5 +98,15 @@ class MeliEr extends Component
         
         Meli::destroy($meliId);
         session()->flash('success', 'Meli berhasil dihapus.');
+    }// Render Method
+
+    public function render()
+    {
+        return view('livewire.meli-er', [
+            // Gunakan eager loading (with('uri')) untuk memuat nama grup
+            'melis' => Meli::with('uri')->get(),
+            // Kirim daftar grup ke view untuk dropdown
+            'uris' => MeliUri::orderBy('name')->get(), 
+        ])->layout('layouts.taskbar');;
     }
 }
