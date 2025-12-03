@@ -37,33 +37,40 @@ class MeliEr extends Component
     public function save()
     {
         if (! Auth::check()) {
-        return redirect()->route('login');
+            return redirect()->route('login');
         }
 
         // 1. Dapatkan data yang sudah terverifikasi
         $validatedData = $this->validate();
 
-        // 2. Bersihkan/Atur ulang nilai mohs_hardness menjadi NULL jika kosong
-        // Kita akan hapus mohs_hardness dari $validatedData dan masukkan kembali yang sudah bersih
+        // 2. Bersihkan/Atur ulang nilai mohs_hardness, formula, dan color menjadi NULL jika kosong
+        // Ini menangani kasus field yang boleh kosong (nullable) di database
+
         $validatedData['mohs_hardness'] = 
             empty($this->mohs_hardness) ? null : (int)$this->mohs_hardness;
-
-        // Pastikan field lain yang nullable (formula, color) di-cast ke NULL jika kosong
-        // Ini menangani kasus field yang boleh kosong (nullable) di database
+            
         $validatedData['formula'] = empty($this->formula) ? null : $this->formula;
         $validatedData['color'] = empty($this->color) ? null : $this->color;
         
         // Pastikan ID kategori sudah masuk
+        // Meskipun sudah tervalidasi, dimasukkan kembali agar pasti ada di $validatedData
         $validatedData['meli_uri_id'] = $this->meli_uri_id;
 
-        // 3. Lakukan Create
+        // 3. Lakukan Create atau Update
         if ($this->editingMeliId) {
-            // ... (Update logic)
+            // Logika UPDATE
+            $meli = Meli::findOrFail($this->editingMeliId);
+            $meli->update($validatedData); // <-- BARIS KRITIS
         } else {
-            // Gunakan data yang sudah bersih dan lengkap
+            // Logika CREATE
             Meli::create($validatedData); 
         }
 
+        // Berikan pesan sukses (Opsional, tapi disarankan)
+        $message = $this->editingMeliId ? 'Meli berhasil diperbarui.' : 'Meli berhasil ditambahkan.';
+        session()->flash('success', $message);
+        
+        // Reset state setelah operasi selesai
         $this->reset(['meli_uri_id', 'name', 'formula', 'color', 'mohs_hardness', 'editingMeliId']);
     }
 

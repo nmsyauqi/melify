@@ -23,7 +23,7 @@ use App\Livewire\MeliEr;
 */
 
 Route::view('/', 'welcome')->name('home');
-
+Route::redirect('/dashboard', '/meli-er');
 Route::get('/meli-er', MeliEr::class);
 
 Route::middleware('guest')->group(function () {
