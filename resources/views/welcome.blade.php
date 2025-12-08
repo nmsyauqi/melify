@@ -17,7 +17,7 @@
             <div class="space-x-4">
                 @if ($isLoggedIn)
                     {{-- Jika sudah login --}}
-                    <a href="{{ route('meli-er') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150">
+                    <a href="{{ route('/meli-er') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150">
                         <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
                     </a>
                     <a href="{{ route('logout') }}" 
@@ -48,10 +48,10 @@
             {{-- Kolom Kiri (Judul dan Deskripsi) --}}
             <div class="w-full lg:w-1/2 mb-12 lg:mb-0">
                 <h1 class="text-6xl font-extrabold leading-tight mb-4 text-yellow-400">
-                    Kelola <span class="text-white">Melifera</span> Data Lebih Cepat
+                    Kelola <span class="text-white">Mineral</span> Data Lebih Cepat
                 </h1>
                 <p class="text-xl text-gray-300 mb-8">
-                    Melify adalah solusi cerdas untuk manajemen data Melifera Anda. 
+                    Melify adalah solusi cerdas untuk manajemen data Mineral Anda. 
                     Dengan Livewire dan Vue.js, pengelolaan data Anda menjadi reaktif, cepat, dan modern.
                 </p>
                 
