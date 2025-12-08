@@ -17,7 +17,7 @@
             <div class="space-x-4">
                 @if ($isLoggedIn)
                     {{-- Jika sudah login --}}
-                    <a href="{{ route('/meli-er') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150">
+                    <a href="{{ route('meli-er') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150">
                         <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
                     </a>
                     <a href="{{ route('logout') }}" 
