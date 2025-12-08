@@ -24,7 +24,9 @@ use App\Livewire\MeliEr;
 
 Route::view('/', 'welcome')->name('home');
 Route::redirect('/dashboard', '/meli-er');
-Route::get('/meli-er', \App\Livewire\MeliEr::class)->middleware('auth')->name('meli-er');
+Route::get('/meli-er', MeliEr::class)->name('meli-er');
+Route::get('meli-er', MeliEr::class)->name('meli-er');
+Route::get('/meli-er', MeliEr::class)->middleware('auth')->name('meli-er');
 
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)
